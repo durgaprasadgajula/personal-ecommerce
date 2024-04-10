@@ -246,7 +246,7 @@
 // }
 
 // export default App;
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
     BrowserRouter as Router,
     Routes,
@@ -262,7 +262,8 @@ import Cart from "./components/Cart";
 import NotFound from "./components/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CartContext from "./context/CartContext";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import RegisterForm from "./components/RegisterForm";
 
@@ -321,12 +322,13 @@ function App() {
         setCartList([]);
     };
 
-    useEffect(() => {
-        // Fetch initial cart data, if necessary
-    }, []); // Empty dependency array means this effect runs only once, similar to componentDidMount
+    // useEffect(() => {
+    //     // Fetch initial cart data, if necessary
+    // }, []); // Empty dependency array means this effect runs only once, similar to componentDidMount
 
     return (
         <Router>
+            <ToastContainer />
             <CartContext.Provider
                 value={{
                     cartList,

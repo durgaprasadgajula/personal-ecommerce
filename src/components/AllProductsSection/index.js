@@ -352,7 +352,7 @@ class AllProductsSection extends Component {
             searchInput,
             activeRatingId,
         } = this.state;
-        const apiUrl = `http://localhost:8000/products?sort_by=${activeOptionId}&category=${activeCategoryId}&title_search=${searchInput}&rating=${activeRatingId}`;
+        const apiUrl = `https://personal-ecommerce-1.onrender.com/products?sort_by=${activeOptionId}&category=${activeCategoryId}&title_search=${searchInput}&rating=${activeRatingId}`;
         const options = {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,

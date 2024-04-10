@@ -34,7 +34,7 @@ function LoginForm() {
     const submitForm = async (event) => {
         event.preventDefault();
         const userDetails = { username, password };
-        const url = "http://localhost:8000/login";
+        const url = "https://personal-ecommerce-1.onrender.com/login";
         const options = {
             method: "POST",
             headers: {
@@ -69,7 +69,7 @@ function LoginForm() {
                 }),
             };
             const response = await fetch(
-                "http://localhost:8000/google-login",
+                "https://personal-ecommerce-1.onrender.com/google-login",
                 requestOptions
             );
             const data = await response.json();

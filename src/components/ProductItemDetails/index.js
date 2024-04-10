@@ -259,7 +259,7 @@ const ProductItemDetails = () => {
     const getProductData = async () => {
         setApiStatus(apiStatusConstants.inProgress);
         const jwtToken = Cookies.get("jwt_token");
-        const apiUrl = `http://localhost:8000/products/${id}`;
+        const apiUrl = `https://personal-ecommerce-1.onrender.com/products/${id}`;
         const options = {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,

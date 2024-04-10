@@ -209,7 +209,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 
@@ -256,7 +256,7 @@ function RegisterForm() {
             return;
         }
         const userDetails = { username, email, password };
-        const url = "http://localhost:8000/register";
+        const url = "https://personal-ecommerce-1.onrender.com/register";
         const options = {
             method: "POST",
             headers: {
@@ -269,8 +269,8 @@ function RegisterForm() {
             const response = await fetch(url, options);
             const data = await response.json();
             if (response.ok) {
-                toast.success("Successfully Registered!");
                 setTimeout(() => {
+                    toast.success("Successfully Registered!Please Login");
                     navigate("/login");
                 }, 2000); // Redirect after 2 seconds
             } else {
@@ -362,7 +362,6 @@ function RegisterForm() {
                     Register
                 </button>
             </form>
-            <ToastContainer />
         </motion.div>
     );
 }
