@@ -13,7 +13,7 @@ let db;
 const initializeDBandServer = async () => {
     try {
         db = await open({
-            filename: path.join(__dirname, "nxtTrendz.db"),
+            filename: path.join(__dirname, "durgaTrendz.db"),
             driver: sqlite3.Database,
         });
         app.listen(8000, () => {
