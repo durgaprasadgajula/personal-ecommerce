@@ -172,7 +172,7 @@ const Header = () => {
                     <Link to="/">
                         <img
                             className="website-logo"
-                            src="https://res.cloudinary.com/dcy8ylflx/image/upload/v1712653589/Screenshot_2024-04-09_143608_hs2ruy.png"
+                            src="https://res.cloudinary.com/dcy8ylflx/image/upload/v1712653908/Screenshot_2024-04-09_144038_kqpydu.svg"
                             alt="website logo"
                         />
                     </Link>
