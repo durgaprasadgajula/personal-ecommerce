@@ -214,156 +214,158 @@ import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 
 function RegisterForm() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [state, setState] = useState({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-    });
+  const [state, setState] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-    const onChangeUsername = (event) => {
-        setState((prevState) => ({
-            ...prevState,
-            username: event.target.value,
-        }));
+  const onChangeUsername = (event) => {
+    setState((prevState) => ({
+      ...prevState,
+      username: event.target.value,
+    }));
+  };
+
+  const onChangeEmail = (event) => {
+    setState((prevState) => ({ ...prevState, email: event.target.value }));
+  };
+
+  const onChangePassword = (event) => {
+    setState((prevState) => ({
+      ...prevState,
+      password: event.target.value,
+    }));
+  };
+
+  const onChangeConfirmPassword = (event) => {
+    setState((prevState) => ({
+      ...prevState,
+      confirmPassword: event.target.value,
+    }));
+  };
+
+  const submitForm = async (event) => {
+    event.preventDefault();
+    const { username, email, password, confirmPassword } = state;
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    console.log(process.env.REACT_APP_API_URL);
+    const userDetails = { username, email, password };
+    const url = `${process.env.REACT_APP_API_URL}/register`;
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userDetails),
     };
 
-    const onChangeEmail = (event) => {
-        setState((prevState) => ({ ...prevState, email: event.target.value }));
-    };
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      if (response.ok) {
+        setTimeout(() => {
+          toast.success("Successfully Registered!Please Login");
+          navigate("/login");
+        }, 2000); // Redirect after 2 seconds
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error("Error registering user:", error);
+      toast.error("An error occurred. Please try again.");
+    }
+  };
 
-    const onChangePassword = (event) => {
-        setState((prevState) => ({
-            ...prevState,
-            password: event.target.value,
-        }));
-    };
+  return (
+    <motion.div
+      className="login-form-container"
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <img
+        src="https://res.cloudinary.com/dcy8ylflx/image/upload/v1712597163/Screenshot_2024-04-08_223200_szybqq.png"
+        className="login-website-logo-mobile-img"
+        alt="website logo"
+      />
+      <img
+        src="https://res.cloudinary.com/dcy8ylflx/image/upload/v1712592804/6505894_ad09hr.jpg"
+        className="login-img"
+        alt="website login"
+      />
 
-    const onChangeConfirmPassword = (event) => {
-        setState((prevState) => ({
-            ...prevState,
-            confirmPassword: event.target.value,
-        }));
-    };
-
-    const submitForm = async (event) => {
-        event.preventDefault();
-        const { username, email, password, confirmPassword } = state;
-        if (password !== confirmPassword) {
-            toast.error("Passwords do not match");
-            return;
-        }
-        const userDetails = { username, email, password };
-        const url = "https://personal-ecommerce-1.onrender.com/register";
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userDetails),
-        };
-
-        try {
-            const response = await fetch(url, options);
-            const data = await response.json();
-            if (response.ok) {
-                setTimeout(() => {
-                    toast.success("Successfully Registered!Please Login");
-                    navigate("/login");
-                }, 2000); // Redirect after 2 seconds
-            } else {
-                toast.error(data.message);
-            }
-        } catch (error) {
-            console.error("Error registering user:", error);
-            toast.error("An error occurred. Please try again.");
-        }
-    };
-
-    return (
-        <motion.div
-            className="login-form-container"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-        >
-            <img
-                src="https://res.cloudinary.com/dcy8ylflx/image/upload/v1712597163/Screenshot_2024-04-08_223200_szybqq.png"
-                className="login-website-logo-mobile-img"
-                alt="website logo"
-            />
-            <img
-                src="https://res.cloudinary.com/dcy8ylflx/image/upload/v1712592804/6505894_ad09hr.jpg"
-                className="login-img"
-                alt="website login"
-            />
-
-            <form className="form-container" onSubmit={submitForm}>
-                <img
-                    src="https://res.cloudinary.com/dcy8ylflx/image/upload/v1712597163/Screenshot_2024-04-08_223200_szybqq.png"
-                    className="login-website-logo-desktop-img"
-                    alt="website logo"
-                />
-                <div className="input-container">
-                    <label className="input-label" htmlFor="username">
-                        USERNAME
-                    </label>
-                    <input
-                        type="text"
-                        id="username"
-                        className="username-input-field"
-                        value={state.username}
-                        onChange={onChangeUsername}
-                        placeholder="Username"
-                    />
-                </div>
-                <div className="input-container">
-                    <label className="input-label" htmlFor="email">
-                        EMAIL
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        className="username-input-field"
-                        value={state.email}
-                        onChange={onChangeEmail}
-                        placeholder="Email"
-                    />
-                </div>
-                <div className="input-container">
-                    <label className="input-label" htmlFor="password">
-                        PASSWORD
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        className="password-input-field"
-                        value={state.password}
-                        onChange={onChangePassword}
-                        placeholder="Password"
-                    />
-                </div>
-                <div className="input-container">
-                    <label className="input-label" htmlFor="confirmPassword">
-                        CONFIRM PASSWORD
-                    </label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        className="password-input-field"
-                        value={state.confirmPassword}
-                        onChange={onChangeConfirmPassword}
-                        placeholder="Confirm Password"
-                    />
-                </div>
-                <button type="submit" className="login-button">
-                    Register
-                </button>
-            </form>
-        </motion.div>
-    );
+      <form className="form-container" onSubmit={submitForm}>
+        <img
+          src="https://res.cloudinary.com/dcy8ylflx/image/upload/v1712597163/Screenshot_2024-04-08_223200_szybqq.png"
+          className="login-website-logo-desktop-img"
+          alt="website logo"
+        />
+        <div className="input-container">
+          <label className="input-label" htmlFor="username">
+            USERNAME
+          </label>
+          <input
+            type="text"
+            id="username"
+            className="username-input-field"
+            value={state.username}
+            onChange={onChangeUsername}
+            placeholder="Username"
+          />
+        </div>
+        <div className="input-container">
+          <label className="input-label" htmlFor="email">
+            EMAIL
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="username-input-field"
+            value={state.email}
+            onChange={onChangeEmail}
+            placeholder="Email"
+          />
+        </div>
+        <div className="input-container">
+          <label className="input-label" htmlFor="password">
+            PASSWORD
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="password-input-field"
+            value={state.password}
+            onChange={onChangePassword}
+            placeholder="Password"
+          />
+        </div>
+        <div className="input-container">
+          <label className="input-label" htmlFor="confirmPassword">
+            CONFIRM PASSWORD
+          </label>
+          <input
+            type="password"
+            id="confirmPassword"
+            className="password-input-field"
+            value={state.confirmPassword}
+            onChange={onChangeConfirmPassword}
+            placeholder="Confirm Password"
+          />
+        </div>
+        <button type="submit" className="login-button">
+          Register
+        </button>
+      </form>
+    </motion.div>
+  );
 }
 
 export default RegisterForm;
