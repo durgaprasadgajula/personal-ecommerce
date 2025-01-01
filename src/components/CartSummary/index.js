@@ -1,6 +1,5 @@
 import CartContext from "../../context/CartContext";
 import { v4 as uuidv4 } from "uuid";
-import { toast, ToastContainer } from "react-toastify";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
 
