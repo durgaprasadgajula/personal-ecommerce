@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const CartSummary = () => {
   const navigate = useNavigate();
   const paymentHandler = async (e, totalAmount, removeAllCartItems) => {
+    console.log("event triggered");
     const receipt = `Durga_${uuidv4().slice(0, 30)}`;
 
     const paymentPayload = {
@@ -66,6 +67,7 @@ const CartSummary = () => {
       theme: {
         color: "#3399cc",
       },
+      display: "popup",
     };
 
     const rzp = new window.Razorpay(options);
@@ -106,7 +108,11 @@ const CartSummary = () => {
                 Checkout
               </button>
             </div>
-            <button type="button" className="checkout-button d-lg-none">
+            <button
+              type="button"
+              className="checkout-button d-lg-none"
+              onClick={(e) => paymentHandler(e, total, removeAllCartItems)}
+            >
               Checkout
             </button>
           </>
